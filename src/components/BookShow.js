@@ -1,18 +1,22 @@
 import {useState} from 'react';
 import BookEdit from './BookEdit';
-function BookShow ({book, onDelete}){ //Pass the reference to onDelete, which delete something by id
+function BookShow ({book, onDelete, onEdit}){ //Pass the reference to onDelete, which delete something by id
     const [showEdit, setShowEdit] = useState(false);
 
     const handleDeleteClick = () =>{//handler for when the button is clicked, call onDelete
         onDelete(book.id);
     }
-    const handleEditClick = ()=>{
+    const handleEditClick = () => {
         setShowEdit(!showEdit);
+    }
+
+    const handleSubmit = () => {
+        setShowEdit(false);
     }
 
     let content = <h3>{book.title}</h3>
     if (showEdit){
-        content = <BookEdit />;
+        content = <BookEdit onEdit={onEdit} book = {book} onSubmit = {handleSubmit}/>;
     }
 
     return <div className="book-show">
