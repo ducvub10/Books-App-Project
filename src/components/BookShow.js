@@ -10,16 +10,18 @@ function BookShow ({book, onDelete, onEdit}){ //Pass the reference to onDelete, 
         setShowEdit(!showEdit);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (id, newTitle) => {
         setShowEdit(false);
+        onEdit(id, newTitle)
     }
 
     let content = <h3>{book.title}</h3>
     if (showEdit){
-        content = <BookEdit onEdit={onEdit} book = {book} onSubmit = {handleSubmit}/>;
+        content = <BookEdit book = {book} onSubmit = {handleSubmit}/>;
     }
 
     return <div className="book-show">
+        <img alt ='books' src = {`http://picsum.photos/seed/${book.id}/300/200`} />
         <div> 
             {content}
         </div>
