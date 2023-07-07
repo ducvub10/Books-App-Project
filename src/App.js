@@ -1,21 +1,18 @@
 import axios from 'axios';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import BookCreate from './components/BookCreate';
 import BookList from './components/BookList';
 
 function App(){
     const [books,setBooks] = useState([]);
 
-    //fetch all books from API in first render
-    const fetchBook = async () =>{
+    //fetch all books from API in first render  
+    const fetchBooks = useCallback (async () =>{
         const response = await axios.get('http://localhost:3001/books');
         setBooks(response.data);
-    }
-
-    //
-    useEffect(() =>{ 
-        fetchBook()
     }, []);
+
+    
 
     const editBookByID = async (id, newTitle) =>{
         const response = await axios.put('http://localhost:3001/books/' + id,  {// or `http://localhost/3001/books/${id}`
