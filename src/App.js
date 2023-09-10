@@ -12,7 +12,11 @@ function App(){
         setBooks(response.data);
     }, []);
 
-    
+    /* UseEffect makes it so everytime the websites restart, the books are
+    rendered first from the API */
+    useEffect(() => {
+        fetchBooks();
+      }, []);
 
     const editBookByID = async (id, newTitle) =>{
         const response = await axios.put('http://localhost:3001/books/' + id,  {// or `http://localhost/3001/books/${id}`
